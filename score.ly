@@ -66,7 +66,8 @@ bass-prelude = \relative c {
 
 upper-episode = \relative c'' {
   <c c'>2\( a8 c f a g4 a8-. d,~-- d4.\) e16\(-. f-.
-  g8-. bes,-. g'-. g16 fis g a bes a bes c bes c d bes c d e d e f g f e d c4\)
+  g8( bes,) g'-. g16-. fis-. g( a) bes-. a-. bes( c) bes-. c-.
+  d( bes) c-. d-. e( d) e-. f-. g f e d c4\)
 }
 
 bass-episode = \relative c, {
@@ -132,6 +133,51 @@ bass-chorus-one = \relative c {
   f1 c d a bes f g c
 }
 
+melody-verse-three = \relative c' {
+  \clef treble
+  r8 a\( a c16 c~ c8 f f e e d a d~ d4\) r
+  r8 d\( d e16 e~ e8 a a e e4 a,8 c(~ c16 d c8)\) r4
+  r8 a\( a c16 c~ c8 f f g e f a, d\) r
+  d8\( f e~ e dis e a~ a g4 f8~ f4\) r
+}
+
+melody-bridge-two = \relative c'' {
+  a8\( g16 f~ f8 e d d d d d a'4 g8~ g4\) r
+  a8\( g16 e~ e8 d c c c( a) c g'4 f8~ f4\) r8
+  f8\( f c16 c~ c8 f, a4 g8 d'~ d4\) r8 d\(~
+  d8 d d d16 f~ f8 d f d f f f f a g4 g8~ g4\) r8
+}
+
+melody-chorus-two = \relative c' {
+  c8\( a'8 g16 f~ f8 g a c, g' a~ a c, g' a\)
+  r8 g\( g a16 bes~ bes8 a g e f a, d f~ f a, d e\)
+  r8 e\( e a16 c~ c8 a f e d bes'16 bes~ bes4\)
+  r8 c\( bes a c, a'16 a~ a4\)
+  r8 bes\( a f b, g'16 g~ g4\)
+  r8 g\( f a~ a g( f) a~ a g4 f8\)
+
+  a8\( c, g' a~ a c, g' a\)
+  r8 g\( g a16 bes~ bes8 c g f f a, d f~ f a, f' e\)
+  r8 e\( e a16 c~ c8 a f16 e8. d8 bes'16 bes~ bes4\)
+  r8 c\( bes a c, a'16 a~ a4\)
+  r8 bes\( a f b, g'16 g~ g4\) r4 a8( f)~ f4 c'8( d~ d2 c8)
+  a8\( f f a8. g16~ g8 f\)
+}
+
+bass-chorus-two = \relative c {
+  f1 c d a bes f g c2 d4 e
+  f1 c2~ c4~ c16 a8. d1 a bes f g bes c
+}
+
+upper-outro = \relative c {
+  \clef bass
+  f8\( c' a' f, c'2\)
+  g8\( b f' g, b2\)
+  c,8\( e bes' e, <bes' d> e, <bes' e>4\)
+  <f a c f>1
+}
+
+
 melody = \relative c' {
   \set fingeringOrientations = #'(up)
   \clef treble
@@ -144,7 +190,11 @@ melody = \relative c' {
   \melody-bridge-one
   \melody-chorus-one
   R1*4
-  % \bar "|."
+  \melody-verse-three
+  \melody-bridge-two
+  \melody-chorus-two
+  R1*4
+  \bar "|."
 }
 upper = \relative c' {
   \set fingeringOrientations = #'(up)
@@ -160,7 +210,13 @@ upper = \relative c' {
     \melody-chorus-one
   }
   \upper-episode
-  % \bar "|."
+  \transpose c c' {
+    \melody-verse-three
+    \melody-bridge-two
+    \melody-chorus-two
+  }
+  \upper-outro
+  \bar "|."
 }
 
 lower = \relative c' {
@@ -174,7 +230,12 @@ lower = \relative c' {
   \bass-bridge-one
   \bass-chorus-one
   \bass-episode
-  % \bar "|."
+
+  \bass-verse-two
+  \bass-bridge-one
+  \bass-chorus-two
+  R1*4
+  \bar "|."
 }
 
 dynamics = {
@@ -185,7 +246,9 @@ dynamics = {
   % episode
   s1\f s1*3
 
-  s1\mf s1*31
+  s1\mf s1*14 s4. s8\f s2
+  s1*16
+  s1\mp
 }
 
 lyrics-main = \lyricmode {
@@ -231,7 +294,7 @@ lyrics-main = \lyricmode {
   可 我 已 失 去 為 你 淚 流 滿 面 的 權 利
   但 願 在 我 看 不 到 的 天 際
   你 張 開 了 雙 翼
-  遇 見 你 的 註 定 Woooo
+  遇 見 你 的 註 定 Woooo -
   她 會 有 多 幸 運
 }
 
