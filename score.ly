@@ -45,7 +45,7 @@ rhMark = \markup {
 
 \header {
   title = "田馥甄 - 小幸運"
-  subtitle = "For Piano Solo"
+  subtitle = "For (easy?) harp"
   arranger = "Arranged by Benson"
   composer = "Composed by JerryC"
   copyright = "https://music.bensonby.me"
@@ -60,12 +60,31 @@ upper-prelude = \relative c {
   f8\( g16 a c8 f, a2\)
 }
 
+bass-prelude = \relative c {
+  R1*4
+}
+
+upper-episode = \relative c'' {
+  <c c'>2\( a8 c f a g4 a8-. d,~-- d4.\) e16\(-. f-.
+  g8-. bes,-. g'-. g16 fis g a bes a bes c bes c d bes c d e d e f g f e d c4\)
+}
+
+bass-episode = \relative c, {
+  \makeOctaves 1 {
+    f4 f f f g g g g c c c c c c c c
+  }
+}
+
 melody-verse-one = \relative c' {
   \clef treble
   r8 a\( a c c f f e e d a d~ d4\) r
   r8 d\( d e e a a e e c a8 c~ c4\) r
-  r8 a\( a c c f f e e d a d\) r8
-  d4\( e8~ e dis e a~ a g4 f8~ f4\) r r2
+  r8 a\( a c c f f e e d a d\) r4
+  d8\( e8~ e dis e a~ a g4 f8~ f4\) r r2
+}
+
+bass-verse-one = \relative c {
+  f1 g c, f2. e4 d1 g c, f2. <c bes'>4
 }
 
 melody-verse-two = \relative c' {
@@ -76,26 +95,47 @@ melody-verse-two = \relative c' {
   d8\( f e~ e dis e a~ a g4 f8~ f4\) r
 }
 
+bass-verse-two = \relative c {
+  <f a>1 g c, f2. e4 d1 g c, f2. e4
+}
+
 melody-bridge-one = \relative c'' {
   a8\( g16 f~ f8 e d d d d d a'4 g8~ g4\) r
-  g8\( f16 e~ e8 d c c c a c g'4 f8~ f4\) r8
-  f8\( c a a f a4 g8 d'~ d4\) r
-  d8\( d d d16 f~ f8 d f d f f f f a g4 g8~ g4\) r8
+  g8\( e16 e~ e8 d c c c( a) c g'4 f8~ f4\) r8
+  f8\( f c c f, a4 g8 d'~ d4\) r8 d\(~
+  d8 d d d16 f~ f8 d f d f f f f a g4 g8~ g4\) r8
+}
+
+bass-bridge-one = \relative c {
+  bes1 c2. bes4 a1 d
+  g,1 b c c2 r2
 }
 
 melody-chorus-one = \relative c' {
   c8\( a'8 g16 f~ f8 g a c, g' a~ a c, g' a\)
   r8 g\( g a16 bes~ bes8 a g e f a, d f~ f a, d e\)
-  r8 e\( e a16 c~ c8 a f e d bes'16~ bes bes4\)
+  r8 e\( e a16 c~ c8 a f e d bes'16 bes~ bes4\)
   r8 c\( bes a c, a'16 a~ a4\)
   r8 bes\( a f b, g'16 g~ g4\)
-  r8 g\( f a~ a g f a~ a g4 f8\)
+  r8 g\( f a~ a g( f) a~ a g4 f8\)
+
+  a8\( c, g' a~ a c, g' a\)
+  r8 g\( g a16 bes~ bes8 c g f f a, d f~ f a, d e\)
+  r8 e\( e a16 c~ c8 a f e d bes'16 bes~ bes4\)
+  r8 c\( bes a c, a'16 a~ a4\)
+  r8 bes\( a f b, g'16 g~ g4\) r2
+  r8 a\( f f a8. g16~ g8 f\)
+}
+
+bass-chorus-one = \relative c {
+  f1 c d a bes f g c2 d4 e
+  f1 c d a bes f g c
 }
 
 melody = \relative c' {
   \set fingeringOrientations = #'(up)
   \clef treble
-  \tempo 4 = 124
+  \tempo 4 = 79
   \time 4/4
   \key f \major
   R1*4
@@ -103,15 +143,23 @@ melody = \relative c' {
   \melody-verse-two
   \melody-bridge-one
   \melody-chorus-one
-  \bar "|."
+  R1*4
+  % \bar "|."
 }
 upper = \relative c' {
   \set fingeringOrientations = #'(up)
   \clef treble
-  \tempo 4 = 124
+  \tempo 4 = 79
   \time 4/4
   \key f \major
   \upper-prelude
+  \transpose c c' {
+    \melody-verse-one
+    \melody-verse-two
+    \melody-bridge-one
+    \melody-chorus-one
+  }
+  \upper-episode
   % \bar "|."
 }
 
@@ -120,10 +168,24 @@ lower = \relative c' {
   \clef bass
   \time 4/4
   \key f \major
-  \bar "|."
+  \bass-prelude
+  \bass-verse-one
+  \bass-verse-two
+  \bass-bridge-one
+  \bass-chorus-one
+  \bass-episode
+  % \bar "|."
 }
 
 dynamics = {
+  s1\mp s1*3
+  s1*8
+  s1\mf s1*31
+
+  % episode
+  s1\f s1*3
+
+  s1\mf s1*31
 }
 
 lyrics-main = \lyricmode {
@@ -169,13 +231,17 @@ lyrics-main = \lyricmode {
   可 我 已 失 去 為 你 淚 流 滿 面 的 權 利
   但 願 在 我 看 不 到 的 天 際
   你 張 開 了 雙 翼
-  遇 見 你 的 註 定 Woooo~
+  遇 見 你 的 註 定 Woooo
   她 會 有 多 幸 運
 }
 
 \score {
   <<
-    \new Staff = "melodystaff" <<
+    \new Staff = "melodystaff" \with {
+      fontSize = #-2
+      \override StaffSymbol.staff-space = #(magstep -3)
+      \override StaffSymbol.thickness = #(magstep -3)
+    } <<
       \set Staff.midiInstrument = #"electric guitar (clean)"
       \set Staff.instrumentName = #"Vocal"
       \set Staff.midiMinimumVolume = #0.7
